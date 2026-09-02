@@ -1,0 +1,40 @@
+{% extends "catalog/base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<h1>Каталог товаров</h1>
+
+{% for product in products %}
+
+    <div>
+        {% if product.image %}
+            <img
+                src="{{ product.image.url }}"
+                alt="{{ product.name }}"
+                width="200"
+            >
+        {% endif %}
+
+        <h2>
+            <a href="{% url 'catalog:product_detail' product.pk %}">
+                {{ product.name }}
+            </a>
+        </h2>
+
+        <p>
+            {{ product.description|truncatechars:100 }}
+        </p>
+
+        <p>
+            Цена: {{ product.price }} ₽
+        </p>
+    </div>
+
+{% empty %}
+
+    <p>Товаров пока нет.</p>
+
+{% endfor %}
+{% endblock %}
