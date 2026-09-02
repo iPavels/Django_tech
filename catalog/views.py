@@ -22,4 +22,4 @@ def product_detail(request, pk):
 
 
 def contacts(request):
-    return render(request, 'contacts.html')
+    return render(request, 'catalog/contacts.html')
