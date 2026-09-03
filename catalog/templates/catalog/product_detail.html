@@ -1,27 +1,50 @@
 {% extends "catalog/base.html" %}
 
-{% block title %} {{ product.name }} {% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
 
-<h1>{{ product.name }}</h1>
+<div class="container py-5">
 
-{% if product.image %}
-    <img
-        src="{{ product.image.url }}"
-        alt="{{ product.name }}"
-        width="400"
-    >
-{% endif %}
+    <div class="row">
 
-<p>{{ product.description }}</p>
+        <div class="col-lg-6 text-center">
 
-<p>
-    Цена: {{ product.price }} ₽
-</p>
+            {% if product.image %}
+                <img
+                    src="{{ product.image.url }}"
+                    class="img-fluid"
+                    alt="{{ product.name }}"
+                >
+            {% endif %}
 
-<a href="{% url 'catalog:home' %}">
-    ← Вернуться в каталог
-</a>
+        </div>
+
+        <div class="col-lg-6">
+
+            <h1 class="display-5">
+                {{ product.name }}
+            </h1>
+
+            <p class="lead">
+                {{ product.description }}
+            </p>
+
+            <h2 class="mb-4">
+                {{ product.price }} ₽
+            </h2>
+
+            <a
+                href="{% url 'catalog:home' %}"
+                class="btn btn-outline-primary"
+            >
+                ← Вернуться в каталог
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
