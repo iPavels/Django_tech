@@ -1,0 +1,68 @@
+{% extends "catalog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-lg-8 mx-auto">
+
+            {% if post.preview %}
+                <img
+                    src="{{ post.preview.url }}"
+                    class="img-fluid rounded mb-4"
+                    alt="{{ post.title }}"
+                >
+            {% endif %}
+
+            <h1 class="display-5">
+                {{ post.title }}
+            </h1>
+
+            <p class="text-muted">
+                Создано: {{ post.created_at|date:"d.m.Y H:i" }}
+                |
+                Просмотров: {{ post.views_count }}
+            </p>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    {{ post.content|linebreaks }}
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+
+                <a
+                    href="{% url 'blog:update' post.pk %}"
+                    class="btn btn-outline-primary"
+                >
+                    Редактировать
+                </a>
+
+                <a
+                    href="{% url 'blog:delete' post.pk %}"
+                    class="btn btn-outline-danger"
+                >
+                    Удалить
+                </a>
+
+                <a
+                    href="{% url 'blog:list' %}"
+                    class="btn btn-outline-secondary"
+                >
+                    К списку
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
