@@ -34,6 +34,16 @@
                 {{ product.price }} ₽
             </h2>
 
+            <a href="{% url 'catalog:product_update' product.pk %}"
+                class="btn btn-outline-primary">
+                Редактировать
+            </a>
+
+            <a href="{% url 'catalog:product_delete' product.pk %}"
+                class="btn btn-outline-danger">
+                Удалить
+            </a>
+
             <a
                 href="{% url 'catalog:home' %}"
                 class="btn btn-outline-primary"
