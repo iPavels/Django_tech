@@ -108,3 +108,8 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 DEFAULT_FROM_EMAIL = "noreply@example.com"
 
+LOGIN_URL = "users:login"
+
+LOGIN_REDIRECT_URL = "catalog:home"
+
+LOGOUT_REDIRECT_URL = "catalog:home"
