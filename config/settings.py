@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog',
     'blog',
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -100,3 +101,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+AUTH_USER_MODEL = "users.User"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DEFAULT_FROM_EMAIL = "noreply@example.com"
+
+LOGIN_URL = "users:login"
+
+LOGIN_REDIRECT_URL = "catalog:home"
+
+LOGOUT_REDIRECT_URL = "catalog:home"
