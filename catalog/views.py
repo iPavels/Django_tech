@@ -1,5 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -17,6 +23,24 @@ class ProductListView(ListView):
     model = Product
     template_name = "catalog/home.html"
     context_object_name = "products"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Модератор видит все продукты.
+        if self.request.user.has_perm("catalog.delete_product"):
+            return queryset
+
+        # Авторизованный пользователь видит опубликованные
+        # продукты и свои продукты.
+        if self.request.user.is_authenticated:
+            return queryset.filter(
+                Q(is_published=True) | Q(owner=self.request.user)
+            )
+
+        # Неавторизованный пользователь видит
+        # только опубликованные продукты.
+        return queryset.filter(is_published=True)
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
@@ -78,3 +102,22 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         # Обычный пользователь может удалить
         # только свой продукт.
         return queryset.filter(owner=self.request.user)
+
+
+class ProductUnpublishView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    View,
+):
+    permission_required = "catalog.can_unpublish_product"
+
+    def post(self, request, pk):
+        product = get_object_or_404(Product, pk=pk)
+
+        product.is_published = False
+        product.save(update_fields=["is_published"])
+
+        return redirect(
+            "catalog:product_detail",
+            pk=product.pk,
+        )
