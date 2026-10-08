@@ -1,6 +1,8 @@
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
+from .services import get_products_by_category
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -19,7 +21,15 @@ class ProductListView(ListView):
     template_name = "catalog/home.html"
     context_object_name = "products"
 
+class CategoryProductsView(ListView):
+    template_name = "catalog/category_products.html"
+    context_object_name = "products"
 
+    def get_queryset(self):
+        category_id = self.kwargs["category_id"]
+        return get_products_by_category(category_id)
+
+@method_decorator(cache_page(60), name="dispatch")
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "catalog/product_detail.html"
