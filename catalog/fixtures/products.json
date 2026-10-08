@@ -1,0 +1,54 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+        "name": "iPhone 16",
+        "description": "Смартфон Apple",
+        "image": "",
+        "category": 5,
+        "price": "94990.00",
+        "created_at": "2026-08-11T10:42:26.917Z",
+        "updated_at": "2026-08-11T10:47:45.264Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Samsung Galaxy S25",
+        "description": "Флагманский смартфон Samsung",
+        "image": "",
+        "category": 5,
+        "price": "89990.00",
+        "created_at": "2026-08-11T10:42:26.926Z",
+        "updated_at": "2026-08-11T10:42:26.926Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 10,
+    "fields": {
+        "name": "MacBook Air",
+        "description": "Ноутбук Apple",
+        "image": "",
+        "category": 6,
+        "price": "149990.00",
+        "created_at": "2026-08-11T10:42:48.872Z",
+        "updated_at": "2026-08-11T10:42:48.872Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+        "name": "ASUS VivoBook",
+        "description": "Ноутбук ASUS",
+        "image": "",
+        "category": 6,
+        "price": "79990.00",
+        "created_at": "2026-08-11T10:42:48.875Z",
+        "updated_at": "2026-08-11T10:42:48.875Z"
+    }
+}
+]
